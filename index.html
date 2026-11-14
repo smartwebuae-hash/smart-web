@@ -99,6 +99,7 @@ body.admin .adm-row{display:flex}
 .box p{color:#dfe5ff;margin-top:8px;font-weight:500}
 .box .num{direction:ltr;display:inline-block;font-family:"Poppins",sans-serif;font-weight:700;margin-top:10px;letter-spacing:.5px}
 footer{text-align:center;color:#7c86b3;font-size:13px;font-weight:600;padding:26px 16px 100px;border-top:1px solid var(--line)}
+#admBtn{display:none}body.admin #admBtn{display:inline-block}
 footer button{background:none;border:0;color:#7c86b3;text-decoration:underline;font-weight:700;margin-top:8px;font-size:12px}
 
 /* floating buttons */
@@ -424,6 +425,7 @@ $("#svcForm").onsubmit=async e=>{e.preventDefault();
   if(HAS_DB){const {data}=await sb.auth.getSession();if(data&&data.session)setAdmin(true)}
   else{try{if(sessionStorage.getItem("sw_admin")==="1")setAdmin(true)}catch(e){}}
   if(location.hash==="#admin"&&!isAdmin)$("#admBtn").click();
+  addEventListener("hashchange",()=>{if(location.hash==="#admin"&&!isAdmin)$("#admBtn").click()});
   await load();render();
 })();
 </script>
