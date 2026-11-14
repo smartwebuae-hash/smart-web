@@ -306,7 +306,8 @@ function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");cl
 
 // ===== التخزين: Supabase إن وُجد، وإلا تخزين محلي (وضع التجربة) =====
 const HAS_DB=!!(window.supabase&&/^https:/.test(C.SUPABASE_URL||""));
-const sb=HAS_DB?supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY):null;
+// جلسة دخول خاصة بسمارت ويب (منفصلة عن دخول لوحات تنوركو على نفس النطاق)
+const sb=HAS_DB?supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY,{auth:{storageKey:"smartweb-admin-auth"}}):null;
 const LKEY="sw_services";
 const local={
   get(){try{const v=JSON.parse(localStorage.getItem(LKEY));if(Array.isArray(v))return v}catch(e){}return DEFAULT_SERVICES.map(s=>({active:true,...s}))},
@@ -329,8 +330,9 @@ async function load(){
 }
 async function saveSvc(rec){
   if(HAS_DB){
-    const r=editId?await sb.from("services").update(rec).eq("id",editId):await sb.from("services").insert(rec);
+    const r=editId?await sb.from("services").update(rec).eq("id",editId).select():await sb.from("services").insert(rec).select();
     if(r.error) throw r.error;
+    if(!r.data||!r.data.length) throw new Error("لم يُحفظ شيء — هذا الحساب ليس له صلاحية التعديل. اخرج وادخل بحساب الإدارة");
   }else{
     const all=local.get();
     if(editId){const i=all.findIndex(s=>String(s.id)===String(editId));if(i>-1)all[i]={...all[i],...rec}}
@@ -339,7 +341,8 @@ async function saveSvc(rec){
   }
 }
 async function delSvc(id){
-  if(HAS_DB){const r=await sb.from("services").delete().eq("id",id);if(r.error)throw r.error}
+  if(HAS_DB){const r=await sb.from("services").delete().eq("id",id).select();if(r.error)throw r.error;
+    if(!r.data||!r.data.length)throw new Error("لم يُحذف شيء — هذا الحساب ليس له صلاحية الحذف")}
   else local.set(local.get().filter(s=>String(s.id)!==String(id)));
 }
 
