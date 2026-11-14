@@ -87,10 +87,6 @@ main{padding-bottom:60px}
 .feat li{display:flex;gap:8px;align-items:flex-start;line-height:1.6}
 .feat li::before{content:"✓";flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;background:rgba(34,211,238,.15);color:var(--cyan);margin-top:2px}
 .card .order{margin-top:auto;width:100%}
-.adm-row{display:none;gap:8px}
-body.admin .adm-row{display:flex}
-.adm-row button{flex:1;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:12px;padding:8px;font-weight:800;font-size:13px}
-.adm-row .del{color:#fda4af}
 .empty{text-align:center;color:var(--muted);font-weight:700;padding:40px 0}
 
 /* custom request */
@@ -99,7 +95,6 @@ body.admin .adm-row{display:flex}
 .box p{color:#dfe5ff;margin-top:8px;font-weight:500}
 .box .num{direction:ltr;display:inline-block;font-family:"Poppins",sans-serif;font-weight:700;margin-top:10px;letter-spacing:.5px}
 footer{text-align:center;color:#7c86b3;font-size:13px;font-weight:600;padding:26px 16px 100px;border-top:1px solid var(--line)}
-#admBtn{display:none}body.admin #admBtn{display:inline-block}
 footer button{background:none;border:0;color:#7c86b3;text-decoration:underline;font-weight:700;margin-top:8px;font-size:12px}
 
 /* floating buttons */
@@ -170,7 +165,6 @@ body.admin.local .notice{display:block}
     <a class="btn call" data-call><svg><use href="#i-call"/></svg>اتصل الآن</a>
   </div>
   <div class="aud"><span>👤 للأفراد</span><span>🏛️ للإدارات</span><span>🏢 للشركات</span></div>
-  <div class="notice" id="notice">⚠️ وضع التجربة: الخدمات التي تضيفها تُحفظ على هذا الجهاز فقط. لتظهر لكل الزبائن اربط Supabase من الإعدادات في أسفل الملف (CONFIG).</div>
 </section>
 
 <nav class="bar"><div class="tabs" id="tabs"></div></nav>
@@ -191,52 +185,11 @@ body.admin.local .notice{display:block}
 
 <footer>
   © <span id="yr"></span> Smart Web – سمارت ويب. جميع الحقوق محفوظة.<br>
-  <button id="admBtn">دخول الإدارة</button>
 </footer>
 
 <div class="fab">
   <a class="wa" data-wa aria-label="واتساب"><svg><use href="#i-wa"/></svg></a>
   <a class="call" data-call aria-label="اتصال"><svg><use href="#i-call"/></svg></a>
-</div>
-
-<div class="abar">
-  <button class="out" id="logout">خروج</button>
-  <button class="add" id="addBtn">＋ إضافة خدمة</button>
-</div>
-
-<!-- نافذة تسجيل دخول الإدارة -->
-<div class="mod" id="loginMod">
-  <form class="sheet" id="loginForm">
-    <h3>دخول الإدارة</h3>
-    <div class="f" id="emailF"><label>البريد الإلكتروني</label><input type="email" id="lEmail" autocomplete="username"></div>
-    <div class="f"><label id="passLbl">كلمة المرور</label><input type="password" id="lPass" autocomplete="current-password" required></div>
-    <div class="err" id="lErr"></div>
-    <div class="acts"><button type="submit" class="btn grad">دخول</button><button type="button" class="btn call" data-close>إلغاء</button></div>
-  </form>
-</div>
-
-<!-- نافذة إضافة / تعديل خدمة -->
-<div class="mod" id="svcMod">
-  <form class="sheet" id="svcForm">
-    <h3 id="svcTitle">إضافة خدمة</h3>
-    <div class="f"><label>اسم الخدمة *</label><input id="sName" required placeholder="مثال: متجر إلكتروني"></div>
-    <div class="f"><label>القسم *</label><input id="sCat" list="cats" required placeholder="اختر أو اكتب قسماً جديداً"><datalist id="cats"></datalist></div>
-    <div class="row2">
-      <div class="f"><label>السعر (درهم)</label><input id="sPrice" type="number" min="0" step="1" inputmode="numeric" placeholder="اتركه فارغاً = حسب الطلب"></div>
-      <div class="f"><label>السعر قبل الخصم</label><input id="sOld" type="number" min="0" step="1" inputmode="numeric" placeholder="اختياري"></div>
-    </div>
-    <div class="f"><label>نوع الدفع</label>
-      <select id="sPeriod"><option value="once">مرة واحدة</option><option value="month">اشتراك شهري</option><option value="year">اشتراك سنوي</option></select></div>
-    <div class="f"><label>وصف مختصر</label><textarea id="sDesc" placeholder="جملة أو جملتين عن الخدمة"></textarea></div>
-    <div class="f"><label>المميزات</label><small>كل ميزة في سطر</small><textarea id="sFeat" placeholder="تصميم متجاوب مع الجوال&#10;دومين واستضافة سنة مجاناً"></textarea></div>
-    <div class="row2">
-      <div class="f"><label>شارة</label><input id="sBadge" placeholder="مثال: الأكثر طلباً"></div>
-      <div class="f"><label>الترتيب</label><input id="sSort" type="number" inputmode="numeric" value="0"></div>
-    </div>
-    <label class="chk"><input type="checkbox" id="sActive" checked> ظاهرة للزبائن</label>
-    <div class="err" id="sErr"></div>
-    <div class="acts"><button type="submit" class="btn grad" id="sSave">حفظ الخدمة</button><button type="button" class="btn call" data-close>إلغاء</button></div>
-  </form>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -247,15 +200,13 @@ body.admin.local .notice{display:block}
    3) Supabase (لتظهر الخدمات المضافة لكل الزبائن):
       من لوحة Supabase ← Project Settings ← API انسخ Project URL و anon public key والصقهم هنا.
       ثم شغّل ملف setup.sql مرة واحدة في SQL Editor، وأنشئ حساب الإدارة من Authentication ← Users.
-   4) ADMIN_PIN: رمز الدخول في وضع التجربة فقط (قبل ربط Supabase)
    ================================================================ */
 window.CONFIG = {
   WHATSAPP: "971508435750",
   CALL: "+971508435750",
   CURRENCY: "درهم",
   SUPABASE_URL: "https://iekotptltmkjmieauhqc.supabase.co",
-  SUPABASE_KEY: "sb_publishable_35u5V1apSr2-DCpjp8ltmg_gIJzhXEN",
-  ADMIN_PIN: "2551"
+  SUPABASE_KEY: "sb_publishable_35u5V1apSr2-DCpjp8ltmg_gIJzhXEN"
 };
 </script>
 <script>// الخدمات الافتراضية (تظهر إذا لم يتم ربط Supabase أو كانت قاعدة البيانات فارغة) — الأسعار قابلة للتعديل
@@ -326,22 +277,6 @@ async function load(){
   }
   SERVICES=local.get();
 }
-async function saveSvc(rec){
-  if(HAS_DB){
-    const r=editId?await sb.from("services").update(rec).eq("id",editId):await sb.from("services").insert(rec);
-    if(r.error) throw r.error;
-  }else{
-    const all=local.get();
-    if(editId){const i=all.findIndex(s=>String(s.id)===String(editId));if(i>-1)all[i]={...all[i],...rec}}
-    else all.push({id:"l"+Date.now(),...rec});
-    local.set(all);
-  }
-}
-async function delSvc(id){
-  if(HAS_DB){const r=await sb.from("services").delete().eq("id",id);if(r.error)throw r.error}
-  else local.set(local.get().filter(s=>String(s.id)!==String(id)));
-}
-
 // ===== العرض =====
 function cats(list){
   const set=[...new Set(list.map(s=>s.category||"خدمات أخرى"))];
@@ -360,74 +295,25 @@ function card(s){
     ${s.description?`<p class="desc">${esc(s.description)}</p>`:""}
     ${feats.filter(f=>f.trim()).length?`<ul class="feat">${feats.filter(f=>f.trim()).map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`:""}
     <a class="btn wa order" target="_blank" rel="noopener" href="${waLink(msg)}"><svg><use href="#i-wa"/></svg>اطلب الآن</a>
-    <div class="adm-row"><button data-edit="${esc(s.id)}">✏️ تعديل</button><button class="del" data-del="${esc(s.id)}">🗑️ حذف</button></div>
   </article>`;
 }
 function render(){
   const cs=cats(SERVICES);
-  $("#cats").innerHTML=[...new Set([...CAT_ORDER,...cs])].map(c=>`<option value="${esc(c)}">`).join("");
   if(curTab!=="all"&&!cs.includes(curTab))curTab="all";
   $("#tabs").innerHTML=`<button class="tab${curTab==="all"?" on":""}" data-tab="all">كل الخدمات</button>`+
     cs.map(c=>`<button class="tab${curTab===c?" on":""}" data-tab="${esc(c)}">${esc(c)}</button>`).join("");
   const show=curTab==="all"?cs:[curTab];
   $("#list").innerHTML=SERVICES.length?show.map(c=>`<section class="sec"><div class="sec-h"><h2>${esc(c)}</h2><i></i></div>
      <div class="grid">${SERVICES.filter(s=>(s.category||"خدمات أخرى")===c).map(card).join("")}</div></section>`).join("")
-    :`<p class="empty">لا توجد خدمات بعد${isAdmin?" — اضغط «إضافة خدمة»":""}</p>`;
+    :`<p class="empty">لا توجد خدمات بعد</p>`;
 }
 $("#tabs").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;curTab=b.dataset.tab;render();
   window.scrollTo({top:$("#list").offsetTop-140,behavior:"smooth"})};
 
-// ===== الإدارة =====
-const open=id=>$(id).classList.add("show"), close=()=>$$(".mod").forEach(m=>m.classList.remove("show"));
-$$("[data-close]").forEach(b=>b.onclick=close);
-$$(".mod").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)close()}));
-
-function setAdmin(on){isAdmin=on;document.body.classList.toggle("admin",on);document.body.classList.toggle("local",on&&!HAS_DB);
-  $("#admBtn").textContent=on?"أنت في وضع الإدارة":"دخول الإدارة"}
-$("#admBtn").onclick=()=>{if(isAdmin)return;$("#emailF").style.display=HAS_DB?"":"none";
-  $("#passLbl").textContent=HAS_DB?"كلمة المرور":"رمز الدخول";$("#lErr").textContent="";open("#loginMod");
-  setTimeout(()=>(HAS_DB?$("#lEmail"):$("#lPass")).focus(),50)};
-$("#loginForm").onsubmit=async e=>{e.preventDefault();$("#lErr").textContent="";
-  if(HAS_DB){const {error}=await sb.auth.signInWithPassword({email:$("#lEmail").value.trim(),password:$("#lPass").value});
-    if(error){$("#lErr").textContent="بيانات الدخول غير صحيحة";return}}
-  else{if($("#lPass").value!==String(C.ADMIN_PIN)){$("#lErr").textContent="رمز الدخول غير صحيح";return}
-    try{sessionStorage.setItem("sw_admin","1")}catch(e){}}
-  $("#lPass").value="";close();setAdmin(true);await load();render();toast("مرحباً بك في وضع الإدارة")};
-$("#logout").onclick=async()=>{if(HAS_DB)await sb.auth.signOut();try{sessionStorage.removeItem("sw_admin")}catch(e){}
-  setAdmin(false);await load();render()};
-
-function fillForm(s){s=s||{};
-  $("#svcTitle").textContent=editId?"تعديل الخدمة":"إضافة خدمة";
-  $("#sName").value=s.name||"";$("#sCat").value=s.category||(curTab!=="all"?curTab:"");
-  $("#sPrice").value=s.price??"";$("#sOld").value=s.old_price??"";$("#sPeriod").value=s.period||"once";
-  $("#sDesc").value=s.description||"";$("#sFeat").value=(Array.isArray(s.features)?s.features:String(s.features||"").split("\n")).join("\n");
-  $("#sBadge").value=s.badge||"";$("#sSort").value=s.sort??0;$("#sActive").checked=s.active!==false;$("#sErr").textContent=""}
-$("#addBtn").onclick=()=>{editId=null;fillForm();open("#svcMod");setTimeout(()=>$("#sName").focus(),50)};
-$("#list").onclick=async e=>{
-  const ed=e.target.closest("[data-edit]"),dl=e.target.closest("[data-del]");
-  if(ed){editId=ed.dataset.edit;fillForm(SERVICES.find(s=>String(s.id)===editId));open("#svcMod")}
-  if(dl){const s=SERVICES.find(x=>String(x.id)===dl.dataset.del);if(!confirm(`حذف خدمة «${s?s.name:""}»؟`))return;
-    try{await delSvc(dl.dataset.del);await load();render();toast("تم حذف الخدمة")}catch(err){alert("تعذّر الحذف: "+err.message)}}
-};
-$("#svcForm").onsubmit=async e=>{e.preventDefault();
-  const num=v=>v===""?null:Number(v);
-  const rec={name:$("#sName").value.trim(),category:$("#sCat").value.trim(),price:num($("#sPrice").value),old_price:num($("#sOld").value),
-    period:$("#sPeriod").value,description:$("#sDesc").value.trim(),features:$("#sFeat").value.split("\n").map(x=>x.trim()).filter(Boolean),
-    badge:$("#sBadge").value.trim(),sort:Number($("#sSort").value)||0,active:$("#sActive").checked};
-  if(!rec.name||!rec.category){$("#sErr").textContent="اكتب اسم الخدمة والقسم";return}
-  $("#sSave").disabled=true;
-  try{await saveSvc(rec);close();await load();curTab=rec.category;render();toast(editId?"تم حفظ التعديل ✅":"تمت إضافة الخدمة ✅")}
-  catch(err){$("#sErr").textContent="تعذّر الحفظ: "+err.message}
-  finally{$("#sSave").disabled=false}};
-
 // ===== التشغيل =====
-(async()=>{
-  if(HAS_DB){const {data}=await sb.auth.getSession();if(data&&data.session)setAdmin(true)}
-  else{try{if(sessionStorage.getItem("sw_admin")==="1")setAdmin(true)}catch(e){}}
-  if(location.hash==="#admin"&&!isAdmin)$("#admBtn").click();
-  addEventListener("hashchange",()=>{if(location.hash==="#admin"&&!isAdmin)$("#admBtn").click()});
-  await load();render();
-})();
+// رابط الإدارة القديم يحوّل إلى لوحة التحكم
+if(location.hash==="#admin")location.replace("admin.html");
+load().then(render);
 </script>
 </body>
 </html>
