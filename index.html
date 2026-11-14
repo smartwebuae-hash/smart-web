@@ -256,7 +256,7 @@ function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");cl
 
 // ===== التخزين: Supabase إن وُجد، وإلا تخزين محلي (وضع التجربة) =====
 const HAS_DB=!!(window.supabase&&/^https:/.test(C.SUPABASE_URL||""));
-const sb=HAS_DB?supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY):null;
+const sb=HAS_DB?supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY,{auth:{persistSession:false,autoRefreshToken:false}}):null;
 const LKEY="sw_services";
 const local={
   get(){try{const v=JSON.parse(localStorage.getItem(LKEY));if(Array.isArray(v))return v}catch(e){}return DEFAULT_SERVICES.map(s=>({active:true,...s}))},
